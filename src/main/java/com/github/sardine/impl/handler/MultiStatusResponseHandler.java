@@ -53,7 +53,7 @@ public class MultiStatusResponseHandler extends ValidatingResponseHandler<Multis
         }
         catch(IOException e) {
             // JAXB error unmarshalling response stream
-            throw new SardineException(e.getMessage(), statusLine.getStatusCode(), statusLine.getReasonPhrase());
+            throw new SardineException(e, statusLine.getStatusCode(), statusLine.getReasonPhrase());
         }
 	}
 

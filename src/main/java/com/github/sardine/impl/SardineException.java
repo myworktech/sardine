@@ -29,6 +29,19 @@ public class SardineException extends HttpResponseException
 	private static final long serialVersionUID = -3900043433469104564L;
 
 	private String responsePhrase;
+	private Exception exception;
+
+    /**
+     * @param exception      Cause exception
+     * @param statusCode     Error code returned by server
+     * @param responsePhrase Response phrase following the error code
+     */
+    public SardineException(Exception exception, int statusCode, String responsePhrase)
+    {
+        super(statusCode, exception.getMessage());
+        this.responsePhrase = responsePhrase;
+        this.exception = exception;
+    }
 
 	/**
 	 * @param msg            Custom description of failure
@@ -51,7 +64,11 @@ public class SardineException extends HttpResponseException
 		return this.responsePhrase;
 	}
 
-	@Override
+    public Exception getException() {
+        return exception;
+    }
+
+    @Override
 	public String getMessage()
 	{
 		return String.format("%s (%d %s)", super.getMessage(), this.getStatusCode(), this.getResponsePhrase());
